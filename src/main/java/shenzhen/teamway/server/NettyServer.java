@@ -66,7 +66,7 @@ public class NettyServer {
                 engine.setNeedClientAuth(true);
                 // TODO: 2018/8/28  添加ssl验证
                 //添加ssl验证
-                p.addFirst(new SslHandler(engine));
+              //  p.addFirst(new SslHandler(engine));
             }
         });
         ChannelFuture f = bootstrap.bind(port).sync();

@@ -62,8 +62,8 @@ public class NettyServerSSLHandler extends SimpleChannelInboundHandler<AlarmMess
                     .setSeq(pdgHeader.getSeq()).setStationCode(pdgHeader.getStationCode());
             resBuilder.setResult(true).setMessage("catalog success");
             regRspBuilder.setHeader(pdgBuilder).setResponse(resBuilder);
-            basebuilder.setRegisterRsp(regRspBuilder).setType(AlarmMessage.BaseData.CommandType.REGISTER_RSP);
-            System.out.println(catalog.toString());
+            basebuilder.setRegisterRsp(regRspBuilder).setType(AlarmMessage.BaseData.CommandType.CATALOG_RSP);
+            // System.out.println(catalog.toString());
             ctx.writeAndFlush(basebuilder.build());
         } else if (type == AlarmMessage.BaseData.CommandType.HEARTBEAT) {
             pdgBuilder.setCommand(20004).setSession(uuid).setFromAddr(message.getPDGHeader().getFromAddr()).setSeq(message.getPDGHeader().getSeq());
@@ -71,59 +71,18 @@ public class NettyServerSSLHandler extends SimpleChannelInboundHandler<AlarmMess
             basebuilder.setHeartbeatRsp(heartRsp).setType(AlarmMessage.BaseData.CommandType.HEARTBEAT_RSP);
             System.out.println("走心跳");
             ctx.writeAndFlush(basebuilder.build());
+        } else if (type == AlarmMessage.BaseData.CommandType.REPORT_ALARM) {
+            final AlarmMessage.ReportAlarm alarm = message.getReportAlarm();
+            System.out.println(alarm.toString());
+            System.out.println("告警收到了");
+        } else if (type == AlarmMessage.BaseData.CommandType.REPORT_ENVDATA) {
+            System.out.println("上报采集值收到了");
+            final String s = message.getReportSensorData().toString();
+         //   System.out.println(s);
+        } else if (type == AlarmMessage.BaseData.CommandType.SYSTEM_TIME) {
+            System.out.println("对时间收到了");
         }
-        //switch (type) {
-        //    case 20001:
-        //        //获取注册对象
-        //        final AlarmMessage.Register register = message.getRegister();
-        //        final String password = register.getPassword();
-        //        if (password.equals("123456")) {
-        //            // TODO: 2018/9/3 pdgheader少一个编码
-        //            pdgBuilder.setCommand(20002).setSession(uuid).setFromAddr(message.getPDGHeader().getFromAddr()).setSeq(message.getPDGHeader().getSeq());
-        //            resBuilder.setResult(true);
-        //            regRspBuilder.setHeader(pdgBuilder).setResponse(resBuilder);
-        //            basebuilder.setRegisterRsp(regRspbuilder);
-        //            basebuilder.setPDGHeader(pdgBuilder);
-        //        } else {
-        //            resBuilder.setResult(false);
-        //            resBuilder.setMessage("密码不正确");
-        //        }
-        //        ctx.writeAndFlush(basebuilder.build());
-        //        break;
-        //    case 20003:
-        //        //pong
-        //
-        //        basebuilder.setPDGHeader(pdgBuilder);
-        //        ctx.writeAndFlush(basebuilder.build());
-        //        break;
-        //    case 20011:
-        //        //采集数据列表
-        //        pdgBuilder.setCommand(20012).setSession(uuid).setFromAddr(message.getPDGHeader().getFromAddr()).setSeq(message.getPDGHeader().getSeq());
-        //        if (message.getPDGHeader().getSession() == null) {
-        //            log.info("未登录");
-        //            resBuilder.setResult(false).setMessage("未登录");
-        //        } else {
-        //            resBuilder.setResult(true);
-        //        }
-        //        basebuilder.setResponseMessage(resBuilder).setPDGHeader(pdgBuilder);
-        //        ctx.writeAndFlush(basebuilder.build());
-        //        //获取上报采集数据列表的数据
-        //        message.getReportSensorData();
-        //        break;
-        //    case 20013:
-        //        //告警上报
-        //        pdgBuilder.setCommand(20014).setSession(uuid).setFromAddr(message.getPDGHeader().getFromAddr()).setSeq(message.getPDGHeader().getSeq());
-        //        if (message.getPDGHeader().getSession() == null) {
-        //            log.info("未登录");
-        //            resBuilder.setResult(false).setMessage("未登录");
-        //        } else {
-        //            resBuilder.setResult(true);
-        //        }
-        //        basebuilder.setResponseMessage(resBuilder).setPDGHeader(pdgBuilder);
-        //        ctx.writeAndFlush(basebuilder.build());
-        //        //获取告警的东西
-        //        final AlarmMessage.ReportAlarm reportAlarm = message.getReportAlarm();
-        // }
+
 
     }
 
