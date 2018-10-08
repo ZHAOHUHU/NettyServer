@@ -9,13 +9,12 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import shenzhen.teamway.utils.PropertiesUtils;
-import shenzhen.teamway.protobuf.AlarmMessage;
+import shenzhen.teamway.protobuf.MessageProtobuf;
 import shenzhen.teamway.ssl.ContextSSLFactory;
+import shenzhen.teamway.utils.PropertiesUtils;
 
 import javax.net.ssl.SSLEngine;
 
@@ -54,7 +53,7 @@ public class NettyServer {
             protected void initChannel(SocketChannel socketChannel) {
                 ChannelPipeline p = socketChannel.pipeline();
                 p.addLast(new ProtobufVarint32FrameDecoder());
-                p.addLast(new ProtobufDecoder(AlarmMessage.BaseData.getDefaultInstance()));
+                p.addLast(new ProtobufDecoder(MessageProtobuf.PDGMessage.getDefaultInstance()));
                 p.addLast(new ProtobufVarint32LengthFieldPrepender());
                 p.addLast(new ProtobufEncoder());
                 //没有数据读取就关闭连接

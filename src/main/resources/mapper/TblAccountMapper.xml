@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="shenzhen.teamway.mapper.TblAccountMapper" >
-  <resultMap id="BaseResultMap" type="shenzhen.teamway.pojo.TblAccount" >
-    <id column="UserId" property="userid" jdbcType="INTEGER" />
-    <result column="UserName" property="username" jdbcType="VARCHAR" />
-    <result column="LogonId" property="logonid" jdbcType="VARCHAR" />
-    <result column="Password" property="password" jdbcType="VARCHAR" />
-    <result column="Enable" property="enable" jdbcType="BIT" />
-    <result column="MaxError" property="maxerror" jdbcType="INTEGER" />
-    <result column="Locked" property="locked" jdbcType="BIT" />
-    <result column="ValidTime" property="validtime" jdbcType="TIMESTAMP" />
-    <result column="Description" property="description" jdbcType="VARCHAR" />
-    <result column="IsRemote" property="isremote" jdbcType="BIT" />
-    <result column="CenterId" property="centerid" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shenzhen.teamway.mapper.TblAccountMapper">
+  <resultMap id="BaseResultMap" type="shenzhen.teamway.pojo.TblAccount">
+    <id column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="LogonId" jdbcType="VARCHAR" property="logonid" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Enable" jdbcType="BIT" property="enable" />
+    <result column="MaxError" jdbcType="INTEGER" property="maxerror" />
+    <result column="Locked" jdbcType="BIT" property="locked" />
+    <result column="ValidTime" jdbcType="TIMESTAMP" property="validtime" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="IsRemote" jdbcType="BIT" property="isremote" />
+    <result column="CenterId" jdbcType="INTEGER" property="centerid" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_account
     where UserId = #{userid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="shenzhen.teamway.pojo.TblAccount" >
+  <insert id="insert" parameterType="shenzhen.teamway.pojo.TblAccount">
     insert into tbl_account (UserId, UserName, LogonId, 
       Password, Enable, MaxError, 
       Locked, ValidTime, Description, 
@@ -28,7 +28,7 @@
       #{locked,jdbcType=BIT}, #{validtime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
       #{isremote,jdbcType=BIT}, #{centerid,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="shenzhen.teamway.pojo.TblAccount" >
+  <update id="updateByPrimaryKey" parameterType="shenzhen.teamway.pojo.TblAccount">
     update tbl_account
     set UserName = #{username,jdbcType=VARCHAR},
       LogonId = #{logonid,jdbcType=VARCHAR},
@@ -42,13 +42,65 @@
       CenterId = #{centerid,jdbcType=INTEGER}
     where UserId = #{userid,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select UserId, UserName, LogonId, Password, Enable, MaxError, Locked, ValidTime, 
     Description, IsRemote, CenterId
     from tbl_account
     where UserId = #{userid,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+  <select id="selectAll" resultMap="BaseResultMap">
+    select UserId, UserName, LogonId, Password, Enable, MaxError, Locked, ValidTime, 
+    Description, IsRemote, CenterId
+    from tbl_account
+  </select>
+  <resultMap id="BaseResultMap" type="shenzhen.teamway.pojo.TblAccount">
+    <id column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="LogonId" jdbcType="VARCHAR" property="logonid" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Enable" jdbcType="BIT" property="enable" />
+    <result column="MaxError" jdbcType="INTEGER" property="maxerror" />
+    <result column="Locked" jdbcType="BIT" property="locked" />
+    <result column="ValidTime" jdbcType="TIMESTAMP" property="validtime" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="IsRemote" jdbcType="BIT" property="isremote" />
+    <result column="CenterId" jdbcType="INTEGER" property="centerid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_account
+    where UserId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="shenzhen.teamway.pojo.TblAccount">
+    insert into tbl_account (UserId, UserName, LogonId, 
+      Password, Enable, MaxError, 
+      Locked, ValidTime, Description, 
+      IsRemote, CenterId)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{logonid,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{maxerror,jdbcType=INTEGER}, 
+      #{locked,jdbcType=BIT}, #{validtime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{isremote,jdbcType=BIT}, #{centerid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="shenzhen.teamway.pojo.TblAccount">
+    update tbl_account
+    set UserName = #{username,jdbcType=VARCHAR},
+      LogonId = #{logonid,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Enable = #{enable,jdbcType=BIT},
+      MaxError = #{maxerror,jdbcType=INTEGER},
+      Locked = #{locked,jdbcType=BIT},
+      ValidTime = #{validtime,jdbcType=TIMESTAMP},
+      Description = #{description,jdbcType=VARCHAR},
+      IsRemote = #{isremote,jdbcType=BIT},
+      CenterId = #{centerid,jdbcType=INTEGER}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select UserId, UserName, LogonId, Password, Enable, MaxError, Locked, ValidTime, 
+    Description, IsRemote, CenterId
+    from tbl_account
+    where UserId = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
     select UserId, UserName, LogonId, Password, Enable, MaxError, Locked, ValidTime, 
     Description, IsRemote, CenterId
     from tbl_account

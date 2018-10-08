@@ -1,9 +1,8 @@
 package shenzhen.teamway.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class TblAccount  implements Serializable{
+public class TblAccount {
     private Integer userid;
 
     private String username;
@@ -112,22 +111,5 @@ public class TblAccount  implements Serializable{
 
     public void setCenterid(Integer centerid) {
         this.centerid = centerid;
-    }
-
-    @Override
-    public String toString() {
-        return "TblAccount{" +
-                "userid=" + userid +
-                ", username='" + username + '\'' +
-                ", logonid='" + logonid + '\'' +
-                ", password='" + password + '\'' +
-                ", enable=" + enable +
-                ", maxerror=" + maxerror +
-                ", locked=" + locked +
-                ", validtime=" + validtime +
-                ", description='" + description + '\'' +
-                ", isremote=" + isremote +
-                ", centerid=" + centerid +
-                '}';
     }
 }
