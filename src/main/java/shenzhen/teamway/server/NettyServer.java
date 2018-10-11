@@ -12,7 +12,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import shenzhen.teamway.protobuf.MessageProtobuf;
+import shenzhen.teamway.pdg.protobuf.MessageProtobuf;
 import shenzhen.teamway.ssl.ContextSSLFactory;
 import shenzhen.teamway.utils.PropertiesUtils;
 

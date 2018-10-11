@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import shenzhen.teamway.protobuf.MessageProtobuf;
+import shenzhen.teamway.pdg.protobuf.MessageProtobuf;
 
 import java.util.UUID;
 
@@ -25,7 +25,6 @@ public class NettyServerSSLHandler extends SimpleChannelInboundHandler<MessagePr
 
 
     protected void messageReceived(ChannelHandlerContext ctx, MessageProtobuf.PDGMessage message) {
-        log.info("messageReceived=================================");
         final MessageProtobuf.PDGMessage.Builder basebuilder = MessageProtobuf.PDGMessage.newBuilder();
         final MessageProtobuf.PDGHeader.Builder pdgBuilder = MessageProtobuf.PDGHeader.newBuilder();
         final MessageProtobuf.ResponseMessage.Builder resBuilder = MessageProtobuf.ResponseMessage.newBuilder();
@@ -55,7 +54,7 @@ public class NettyServerSSLHandler extends SimpleChannelInboundHandler<MessagePr
             }
             ctx.writeAndFlush(basebuilder.build());
         } else if (type == MessageProtobuf.CommandType.CATALOG) {
-            System.out.println("走到了设备列表");
+            log.info("走到了设备列表");
             final MessageProtobuf.Catalog catalog = message.getCatalog();
             final MessageProtobuf.PDGHeader pdgHeader = message.getPDGHeader();
             pdgBuilder.setCommand(MessageProtobuf.CommandType.CATALOG_RSP)
@@ -67,19 +66,19 @@ public class NettyServerSSLHandler extends SimpleChannelInboundHandler<MessagePr
             // System.out.println(catalog.toString());
             ctx.writeAndFlush(basebuilder.build());
         } else if (type == MessageProtobuf.CommandType.HEARTBEAT) {
-            System.out.println("走心跳");
+           log.info("走心跳");
         } else if (type == MessageProtobuf.CommandType.REPORT_ALARM) {
             final MessageProtobuf.ReportAlarm alarm = message.getReportAlarm();
             System.out.println(alarm.toString());
-            System.out.println("告警收到了");
+            log.info("告警收到了");
         } else if (type == MessageProtobuf.CommandType.REPORT_ENVDATA) {
-            System.out.println("上报采集值收到了");
+        // log.info("上报采集值收到了");
             final String s = message.getReportSensorData().toString();
-           System.out.println(s);
+         //  System.out.println(s);
         } else if (type == MessageProtobuf.CommandType.SYSTEM_TIME) {
             System.out.println("对时间收到了");
         } else if (type == MessageProtobuf.CommandType.DEVICE_STATE) {
-            System.out.println("设备状态上报收到了");
+           log.info("设备状态上报收到了");
         }
 
 
